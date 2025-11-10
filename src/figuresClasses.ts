@@ -7,34 +7,29 @@ export interface Figure {
   getArea(): number;
 }
 
-// 🔺 Triangle
 export class Triangle implements Figure {
   shape: Shape = 'triangle';
 
-  color: Color;
-
-  a: number;
-
-  b: number;
-
-  c: number;
-
-  constructor(color: Color, a: number, b: number, c: number) {
+  constructor(
+    public color: Color,
+    public a: number,
+    public b: number,
+    public c: number,
+  ) {
     if (a <= 0 || b <= 0 || c <= 0) {
-      throw new Error('All sides must be greater than 0');
+      throw new Error(
+        `All sides must be greater than 0. Got: a=${a}, b=${b}, c=${c}`,
+      );
     }
 
     const longest = Math.max(a, b, c);
     const sumOthers = a + b + c - longest;
 
     if (longest >= sumOthers) {
-      throw new Error(`Sides ${a}, ${b}, and ${c} can't form a triangle`);
+      throw new Error(
+        `Sides ${a}, ${b}, and ${c} cannot form a valid triangle.`,
+      );
     }
-
-    this.color = color;
-    this.a = a;
-    this.b = b;
-    this.c = c;
   }
 
   getArea(): number {
@@ -45,21 +40,16 @@ export class Triangle implements Figure {
   }
 }
 
-// 🟢 Circle
 export class Circle implements Figure {
   shape: Shape = 'circle';
 
-  color: Color;
-
-  radius: number;
-
-  constructor(color: Color, radius: number) {
+  constructor(
+    public color: Color,
+    public radius: number,
+  ) {
     if (radius <= 0) {
-      throw new Error('Radius must be greater than 0');
+      throw new Error(`Radius must be greater than 0. Got: ${radius}`);
     }
-
-    this.color = color;
-    this.radius = radius;
   }
 
   getArea(): number {
@@ -69,24 +59,19 @@ export class Circle implements Figure {
   }
 }
 
-// 🔷 Rectangle
 export class Rectangle implements Figure {
   shape: Shape = 'rectangle';
 
-  color: Color;
-
-  width: number;
-
-  height: number;
-
-  constructor(color: Color, width: number, height: number) {
+  constructor(
+    public color: Color,
+    public width: number,
+    public height: number,
+  ) {
     if (width <= 0 || height <= 0) {
-      throw new Error('Width and height must be greater than 0');
+      throw new Error(
+        `Width and height must be greater than 0. Got: width=${width}, height=${height}`,
+      );
     }
-
-    this.color = color;
-    this.width = width;
-    this.height = height;
   }
 
   getArea(): number {
@@ -96,7 +81,6 @@ export class Rectangle implements Figure {
   }
 }
 
-// ℹ️ getInfo function
 export function getInfo(figure: Figure): string {
   return `A ${figure.color} ${figure.shape} - ${figure.getArea()}`;
 }
